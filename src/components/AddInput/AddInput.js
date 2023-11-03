@@ -8,8 +8,18 @@ function AddInput({
 }) {
 
     const [todo, setTodo] = useState("")
+    const [focused, setFocused] = useState("")
+
+
+    const handleFocus = () => {
+        setFocused(true)
+    }
+    const handleBlur = () => {
+        setFocused(false)
+    }
 
     const addTodo = () => {
+        console.log("This console is for Testing Purpose !")
         let updatedTodos = [
             ...todos,
             {
@@ -24,14 +34,18 @@ function AddInput({
 
     return (
         <div className="input-container">
-            <input 
-                className="input" 
-                value={todo} 
+            <input
+                className="input"
+                value={todo}
                 onChange={(e) => setTodo(e.target.value)}
                 placeholder="Add a new task here..."
+                onFocus={handleFocus}
+                onBlur={handleBlur}
             />
-            <button 
+          {focused ? <p data-testid="message">Input is focused.</p> : null}
+            <button
                 className="add-btn"
+                data-testid='btn-Add'
                 onClick={addTodo}
             >
                 Add

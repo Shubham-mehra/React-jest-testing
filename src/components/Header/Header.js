@@ -6,8 +6,8 @@ export default function Header({
 }) {
     return <> 
     <h1 className="header" data-testid='header-1'>{title}</h1>
-<button> test</button>
-<h2 title='Test Header' className='header'> Test </h2>
+{/* <button> test</button>
+<h5 title='Test Header' > Test </h5> */}
 
     </>
 }

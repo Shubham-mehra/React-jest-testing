@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import AddInput from "../AddInput"
 
 const mockFunction = jest.fn();
@@ -43,4 +43,43 @@ describe("Add input Test", () => {
         expect(renderedInputField.value).toEqual("");
     })
 
+})
+
+
+
+// testing the Keyboard Intraction : Testing
+describe("Test Fire events ", () => {
+    it("Focus", async () => {
+        render(<AddInput
+            todos={[]}
+            setTodos={mockFunction} />);
+        const inputElement = screen.getByPlaceholderText(/Add a new task here.../i);
+
+        // screen.debug()
+        expect(inputElement).toBeInTheDocument();
+        fireEvent.focus(inputElement);
+
+        await waitFor(() => {
+            const messagePara = screen.getByTestId('message');
+
+            expect(messagePara).toBeInTheDocument();
+        })
+
+    })
+})
+
+
+// Test spy on Function in RTL 
+
+
+describe("Spy On Testing ! ", () => {
+    it("Spy On testing : ", () => {
+        const spyLog = jest.spyOn(console, 'log');
+
+        const { getByTestId } = render(<AddInput todos={[]} setTodos={mockFunction} />);
+        const testButton = screen.getByTestId('btn-Add');
+        fireEvent.click(testButton);
+        expect(spyLog).toHaveBeenCalledWith('This console is for Testing Purpose !');
+        spyLog.mockRestore()
+    })
 })
